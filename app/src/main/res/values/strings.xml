@@ -3,5 +3,7 @@
     <string name="connection_error">Not connected to the internet. Please check that you are connected to the internet.</string>
     <string name="server_not_responding">Sorry for inconvenience, please try again later.</string>
     <string name="loading">Loading</string>
+    <string name="see_all">See all</string>
+    <string name="best_sellers">Best Sellers</string>
 
 </resources>
