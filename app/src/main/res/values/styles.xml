@@ -17,17 +17,32 @@
     <style name="FontBold.ColorGray">
         <item name="android:textColor">@color/gray</item>
     </style>
+
     <style name="FontBold.ColorMagenta">
         <item name="android:textColor">@color/magenta</item>
     </style>
+
     <style name="FontBold.ColorBlack">
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="FontBold.ColorMagenta.Size14">
         <item name="android:textSize">@dimen/size_14dp</item>
     </style>
 
+    <style name="FontBold.ColorMagenta.Size16">
+        <item name="android:textSize">@dimen/size_16dp</item>
+    </style>
+
     <style name="FontBold.ColorBlack.Size16">
+        <item name="android:textSize">@dimen/size_16dp</item>
+    </style>
+
+    <style name="FontBold.ColorBlack.Size20">
+        <item name="android:textSize">@dimen/size_20dp</item>
+    </style>
+
+    <style name="FontBold.ColorGray.Size16">
         <item name="android:textSize">@dimen/size_16dp</item>
     </style>
 

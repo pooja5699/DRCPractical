@@ -3,15 +3,16 @@ package com.drcpractical
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.size
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager2.widget.ViewPager2
 import com.drcpractical.databinding.ActivityMainBinding
 import com.drcpractical.network.model.HomeRequest
-import com.drcpractical.network.util.*
+import com.drcpractical.network.util.ApiException
+import com.drcpractical.network.util.DialogProgress
+import com.drcpractical.network.util.NoInternetException
+import com.drcpractical.network.util.showToast
 import com.drcpractical.network.viewmodel.DashboardViewModel
 import com.drcpractical.network.viewmodel.DashboardViewModelFactory
 import kotlinx.coroutines.launch
@@ -52,6 +53,15 @@ class MainActivity : AppCompatActivity(), KodeinAware {
             try {
                 val response = viewModel.hopePage(request)
                 if (response.isNotEmpty()) {
+
+                    val bestSellerAdapter = BestSellerAdapter()
+                    binding.rvBestSeller.adapter = bestSellerAdapter
+                    response[0].data?.bestSeller?.bestsellerList?.let {
+                        bestSellerAdapter.setTitle(
+                            it
+                        )
+                    }
+
                     val adapter = BannerSliderAdapter()
                     binding.viewPagerBanner.adapter = adapter
                     response[0].data?.bannerSlider?.let { adapter.setTitle(it) }
@@ -106,25 +116,5 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         }
     }
 
-    private fun setupCarousel() {
-
-        binding.viewPagerBanner.offscreenPageLimit = 1
-
-        val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
-        val currentItemHorizontalMarginPx =
-            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
-        val pageTranslationY = nextItemVisiblePx + currentItemHorizontalMarginPx
-        val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
-            page.translationY = pageTranslationY * position
-            page.scaleX = 1 - (0.25f * kotlin.math.abs(position))
-            page.alpha = 0.25f + (1 - kotlin.math.abs(position))
-        }
-        binding.viewPagerBanner.setPageTransformer(pageTransformer)
-        val itemDecoration = HorizontalMarginItemDecoration(
-            this,
-            R.dimen.viewpager_current_item_horizontal_margin
-        )
-        binding.viewPagerBanner.addItemDecoration(itemDecoration)
-    }
 
 }
